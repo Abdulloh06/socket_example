@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socket_example/models/message_model.dart';
 import 'package:socket_example/service/message_service.dart';
-import 'package:socket_example/utils/get_it.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   List<MessageModel> messages = [];
   final _controller = TextEditingController();
-  final messageService = getIt.get<MessageService>();
+  final messageService = MessageService();
 
   @override
   void initState() {
@@ -52,21 +51,37 @@ class _HomePageState extends State<HomePage> {
                   itemCount: messages.length,
                   itemBuilder: (context, index) {
                     return Row(
+                      mainAxisAlignment: messages[index].userId
+                          == messageService.socket.id ? MainAxisAlignment.end :
+                          MainAxisAlignment.start,
                       children: [
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5),
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Text(
-                            messages[index].message,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              messages[index].name,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
-                          ),
+                            const SizedBox(height: 10),
+                            Container(
+                              margin: const EdgeInsets.only(bottom: 5),
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                messages[index].message,
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     );

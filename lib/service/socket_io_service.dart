@@ -5,7 +5,7 @@ import 'package:socket_io_client/socket_io_client.dart';
 class SocketService {
 
   final socket = io(
-      'http://10.0.2.2:3000/',
+      'http://localhost:3000/',
       OptionBuilder().setTransports(['websocket']) // for Flutter or Dart VM
           .setExtraHeaders({'foo': 'bar'}) // optional
           .build());

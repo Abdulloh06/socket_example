@@ -14,7 +14,7 @@ class AuthPage extends StatefulWidget {
 class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
-  final socket = getIt.get<LoginService>();
+  final socket = LoginService();
 
   @override
   void initState() {
